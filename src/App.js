@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import "antd/dist/antd.css";
 import Rectangle from "./components/rectangle/Rectangle";
@@ -50,6 +50,14 @@ function App() {
     //close sidebar
     setSidebar(false);
   };
+
+  useEffect(() => {
+    //get items from local storage on page load
+    const shapes = localStorage.getItem('board')
+
+    //set board state to stored data
+    shapes ? setBoard(JSON.parse(shapes)) : setBoard([])
+  }, [])
 
   return (
     <div className='App'>

@@ -1,6 +1,6 @@
 
 .rectangle {
-  animation: draw 5s linear forwards;
+  animation: draw 2s linear forwards;
 }
 
 @keyframes draw {
