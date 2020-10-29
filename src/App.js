@@ -65,7 +65,7 @@ function App() {
         <div className='app-title'>
           <h1>Vectorly IO </h1>
           <button onClick={() => setSidebar(false)}>
-            <span class='material-icons'>clear</span>
+            <span className='material-icons'>clear</span>
           </button>
         </div>
 
@@ -77,7 +77,6 @@ function App() {
                 placeholder='Choose shape'
                 optionFilterProp='children'
                 value={shape}
-                important={true}
                 onChange={(value) => setShape(value)}
               >
                 <Option value='rectangle'>Rectangle</Option>
@@ -103,7 +102,6 @@ function App() {
                 optionFilterProp='children'
                 defaultValue='black'
                 value={color}
-                important={true}
                 onChange={(value) => setColor(value)}
               >
                 <Option value='black'>Black</Option>
@@ -122,7 +120,7 @@ function App() {
       <section className='board'>
         <div className='button-container'>
           <button onClick={() => setSidebar(true)}>
-            <span class='material-icons'>add</span>
+            <span className='material-icons'>add</span>
           </button>
         </div>
         <div className='wrap'>
