@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import styles from "./Rectangle.module.css";
+import styles from "./Square.module.css";
 
-function Rectangle({ color, width, height }) {
+function Square({ color, length }) {
   const [animation, setAnimation] = useState({});
 
   useEffect(() => {
-    //get total lenght of rectangle
-    const perimeter = 2 * (Number(width) + Number(height));
+    //get total lenght of square
+    const perimeter = 4 * length;
 
     //create styling object for svg animation
     const css = {
@@ -16,19 +16,19 @@ function Rectangle({ color, width, height }) {
 
     //set svg animation
     setAnimation(css);
-  }, [height, width]);
+  }, [length]);
 
   return (
-    <div className={styles.rectangleContainer}>
-      <svg width={width} height={height}>
+    <div className={styles.squareContainer}>
+      <svg width={length} height={length}>
         <rect
-          className={styles.rectangle}
+          className={styles.square}
           style={animation}
           fill='transparent'
           stroke={color}
           strokeWidth='3'
-          width={width}
-          height={height}
+          width={length}
+          height={length}
           x='0'
           y='0'
           preserveAspectRatio='xMidYMid'
@@ -38,4 +38,4 @@ function Rectangle({ color, width, height }) {
   );
 }
 
-export default Rectangle;
+export default Square;

@@ -1,17 +1,50 @@
-import React from 'react'
+import React, { useState } from "react";
 import "./App.css";
 import "antd/dist/antd.css";
 import Rectangle from "./components/rectangle/Rectangle";
+import Square from "./components/square/Square";
 import Circle from "./components/circle/Circle";
+
+import RectangleForm from "./components/rectangle/RectangleForm";
+import SquareForm from "./components/square/SquareForm";
+import CircleForm from "./components/circle/CircleForm";
 
 import { Select } from "antd";
 const { Option } = Select;
 
 function App() {
+  const [shape, setShape] = useState("");
+  const [color, setColor] = useState("black");
+  const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
+  const [length, setLength] = useState(0);
+  const [radius, setRadius] = useState(0);
 
-  const onChange = () => {
-    console.log('shape');
-  }
+  const [board, setBoard] = useState([]);
+
+  const createShape = (e) => {
+    //prevent default form submission
+    e.preventDefault();
+
+    //create new shape object containeing parameters
+    const newShape = {
+      shape,
+      color,
+      width,
+      height,
+      length,
+      radius,
+    };
+
+    //add new shape to board
+    setBoard([...board, newShape]);
+
+    //send board state to local storage
+    localStorage.setItem("board", JSON.stringify([...board, newShape]));
+
+    //return form state to normal
+    setShape("");
+  };
 
   return (
     <div className='App'>
@@ -21,42 +54,43 @@ function App() {
         </div>
 
         <div className='form-container'>
-          <form>
+          <form onSubmit={(e) => createShape(e)}>
             <div className='input-wrap'>
               <p>Select shape type</p>
               <Select
-                style={{ width: 200 }}
                 placeholder='Choose shape'
                 optionFilterProp='children'
-                onChange={onChange}
+                onChange={(value) => setShape(value)}
               >
-                <Option value='Rectangle'>Rectangle</Option>
-                <Option value='Circle'>Circle</Option>
-                <Option value='Square'>Square</Option>
+                <Option value='rectangle'>Rectangle</Option>
+                <Option value='circle'>Circle</Option>
+                <Option value='square'>Square</Option>
               </Select>
             </div>
 
-            <div className='input-wrap'>
-              <p>Height</p>
-              <input type='number' placeholder='Input Height' />
-            </div>
-
-            <div className='input-wrap'>
-              <p>Width</p>
-              <input type='number' placeholder='Input Width' />
-            </div>
+            {shape === "rectangle" ? (
+              <RectangleForm width={setWidth} height={setHeight} />
+            ) : shape === "square" ? (
+              <SquareForm length={setLength} />
+            ) : shape === "circle" ? (
+              <CircleForm radius={setRadius} />
+            ) : (
+              ""
+            )}
 
             <div className='input-wrap'>
               <p>Select color</p>
               <Select
-                style={{ width: 200 }}
                 placeholder='Choose shape'
                 optionFilterProp='children'
-                onChange={onChange}
+                defaultValue='black'
+                onChange={(value) => setColor(value)}
               >
-                <Option value='Blue'>Blue</Option>
-                <Option value='Red'>Red</Option>
-                <Option value='Yellow'>Yellow</Option>
+                <Option value='black'>Black</Option>
+                <Option value='blue'>Blue</Option>
+                <Option value='red'>Red</Option>
+                <Option value='yellow'>Yellow</Option>
+                <Option value='violet'>Violet</Option>
               </Select>
             </div>
 
@@ -67,11 +101,22 @@ function App() {
 
       <section className='board'>
         <div className='shapes-container'>
-          <Rectangle width='250' height='130' />
-          <Rectangle width='300' height='150' />
-          <Circle />
-          <Rectangle width='400' height='180' />
-          {/* <Circle /> */}
+          {board.map((item, index) =>
+            item.shape === "rectangle" ? (
+              <Rectangle
+                key={index}
+                color={item.color}
+                width={item.width}
+                height={item.height}
+              />
+            ) : item.shape === "square" ? (
+              <Square key={index} color={item.color} length={item.length} />
+            ) : item.shape === "circle" ? (
+              <Circle key={index} color={item.color} radius={item.radius} />
+            ) : (
+              ""
+            )
+          )}
         </div>
       </section>
     </div>
