@@ -52,21 +52,26 @@ function App() {
   };
 
   const clearStorage = () => {
-    
     //delete items from loacl storage
-    localStorage.removeItem('board')
+    localStorage.removeItem("board");
 
     //empty board array
     setBoard([]);
-  }
+  };
 
   useEffect(() => {
     //get items from local storage on page load
-    const shapes = localStorage.getItem('board')
+    const shapes = localStorage.getItem("board");
 
     //set board state to stored data
-    shapes ? setBoard(JSON.parse(shapes)) : setBoard([])
-  }, [])
+    shapes ? setBoard(JSON.parse(shapes)) : setBoard([]);
+
+    // chrome bug fix
+    window.addEventListener("resize", () => {
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+    });
+  }, []);
 
   return (
     <div className='App'>
@@ -122,7 +127,9 @@ function App() {
             </div>
 
             <button>Draw Shape</button>
-            <button type='button' onClick={() => clearStorage()}>Clear Board</button>
+            <button type='button' onClick={() => clearStorage()}>
+              Clear Board
+            </button>
           </form>
         </div>
       </section>
