@@ -30,7 +30,7 @@ svg {
   padding: 1rem 2%;
   background: #4f3961;
   background: #16697a;
-  min-height: calc(var(--vh, 1vh) * 100);;
+  min-height: 100vh;
 }
 
 @media (max-width: 900px) {
@@ -103,10 +103,10 @@ form button {
 .App > section:nth-child(2) {
   width: 70%;
   padding: 1rem 2%;
-  min-height: calc(var(--vh, 1vh) * 100);;
+  min-height: calc(var(--vh, 1vh) * 100);
   border: 10px solid #db6400;
   overflow-y: auto;
-  height: calc(var(--vh, 1vh) * 100);;
+  height: calc(var(--vh, 1vh) * 100);
   position: relative;
 }
 
