@@ -57,6 +57,9 @@ function App() {
 
     //empty board array
     setBoard([]);
+
+    //close sidebar
+    setSidebar(false);
   };
 
   useEffect(() => {
@@ -65,6 +68,10 @@ function App() {
 
     //set board state to stored data
     shapes ? setBoard(JSON.parse(shapes)) : setBoard([]);
+
+    // chrome bug fix
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
 
     // chrome bug fix
     window.addEventListener("resize", () => {
