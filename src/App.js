@@ -51,6 +51,15 @@ function App() {
     setSidebar(false);
   };
 
+  const clearStorage = () => {
+    
+    //delete items from loacl storage
+    localStorage.removeItem('board')
+
+    //empty board array
+    setBoard([]);
+  }
+
   useEffect(() => {
     //get items from local storage on page load
     const shapes = localStorage.getItem('board')
@@ -113,6 +122,7 @@ function App() {
             </div>
 
             <button>Draw Shape</button>
+            <button type='button' onClick={() => clearStorage()}>Clear Board</button>
           </form>
         </div>
       </section>
