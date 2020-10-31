@@ -15,13 +15,14 @@ const { Option } = Select;
 function App() {
   const [shape, setShape] = useState(null);
   const [color, setColor] = useState(null);
-  const [width, setWidth] = useState(null);
-  const [height, setHeight] = useState(null);
-  const [length, setLength] = useState(null);
-  const [radius, setRadius] = useState(null);
+  const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
+  const [length, setLength] = useState(0);
+  const [radius, setRadius] = useState(0);
 
   const [board, setBoard] = useState([]);
   const [sidebar, setSidebar] = useState(false);
+  const [alert, setAlert] = useState(false);
 
   const createShape = (e) => {
     //prevent default form submission
@@ -37,18 +38,32 @@ function App() {
       radius,
     };
 
-    //add new shape to board
-    setBoard([...board, newShape]);
+    //filter newShape object to check for missing fields
+    const missingFields = Object.values(newShape).filter(
+      (field) => field === null
+    );
 
-    //send board state to local storage
-    localStorage.setItem("board", JSON.stringify([...board, newShape]));
+    //show alert when missing fields are detected
+    if (missingFields.length > 0) {
+      setAlert(true);
 
-    //return form state to normal
-    setShape(null);
-    setColor(null);
+      setTimeout(() => {
+        setAlert(false);
+      }, 2000);
+    } else {
+      //add new shape to board
+      setBoard([...board, newShape]);
 
-    //close sidebar
-    setSidebar(false);
+      //send board state to local storage
+      localStorage.setItem("board", JSON.stringify([...board, newShape]));
+
+      //return form state to normal
+      setShape(null);
+      setColor(null);
+
+      //close sidebar
+      setSidebar(false);
+    }
   };
 
   const clearStorage = () => {
@@ -91,6 +106,13 @@ function App() {
         </div>
 
         <div className='form-container'>
+          {alert && (
+            <div className='alert'>
+              <span className='material-icons'>error_outline</span>
+              <p>Please fill all fields</p>
+            </div>
+          )}
+
           <form onSubmit={(e) => createShape(e)}>
             <div className='input-wrap'>
               <p>Select shape type</p>
