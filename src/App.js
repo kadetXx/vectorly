@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { CirclePicker } from "react-color";
 import "./App.css";
 import "antd/dist/antd.css";
 import Rectangle from "./components/rectangle/Rectangle";
@@ -14,7 +15,7 @@ const { Option } = Select;
 
 function App() {
   const [shape, setShape] = useState(null);
-  const [color, setColor] = useState(null);
+  const [color, setColor] = useState("#000000");
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
   const [length, setLength] = useState(0);
@@ -59,7 +60,6 @@ function App() {
 
       //return form state to normal
       setShape(null);
-      setColor(null);
 
       //close sidebar
       setSidebar(false);
@@ -96,36 +96,36 @@ function App() {
   }, []);
 
   return (
-    <div className='App'>
-      <section className='user' id={sidebar ? "showSidebar" : ""}>
-        <div className='app-title'>
-          <h1>Vectorly IO </h1>
+    <div className="App">
+      <section className="user" id={sidebar ? "showSidebar" : ""}>
+        <div className="app-title">
+          <h1>Vectorly</h1>
           <button onClick={() => setSidebar(false)}>
-            <span className='material-icons'>clear</span>
+            <span className="material-icons">clear</span>
           </button>
         </div>
 
-        <div className='form-container'>
+        <div className="form-container">
           {alert && (
-            <div className='alert'>
-              <span className='material-icons'>error_outline</span>
+            <div className="alert">
+              <span className="material-icons">error_outline</span>
               <p>Please fill all fields</p>
             </div>
           )}
 
           <form onSubmit={(e) => createShape(e)}>
-            <div className='input-wrap'>
+            <div className="input-wrap">
               <p>Select shape type</p>
               <Select
                 size="large"
-                placeholder='Choose shape'
-                optionFilterProp='children'
+                placeholder="Choose shape"
+                optionFilterProp="children"
                 value={shape}
                 onChange={(value) => setShape(value)}
               >
-                <Option value='rectangle'>Rectangle</Option>
-                <Option value='circle'>Circle</Option>
-                <Option value='square'>Square</Option>
+                <Option value="rectangle">Rectangle</Option>
+                <Option value="circle">Circle</Option>
+                <Option value="square">Square</Option>
               </Select>
             </div>
 
@@ -139,40 +139,32 @@ function App() {
               ""
             )}
 
-            <div className='input-wrap'>
+            <div className="input-wrap">
               <p>Select color</p>
-              <Select
-              size="large"
-                placeholder='Choose color'
-                optionFilterProp='children'
-                defaultValue='black'
-                value={color}
-                onChange={(value) => setColor(value)}
-              >
-                <Option value='black'>Black</Option>
-                <Option value='blue'>Blue</Option>
-                <Option value='red'>Red</Option>
-                <Option value='yellow'>Yellow</Option>
-                <Option value='violet'>Violet</Option>
-              </Select>
+              <CirclePicker
+              color={color}
+              onChangeComplete={(color) => setColor(color.hex)}
+            />
             </div>
 
+           
+
             <button>Draw Shape</button>
-            <button type='button' onClick={() => clearStorage()}>
+            <button type="button" onClick={() => clearStorage()}>
               Clear Board
             </button>
           </form>
         </div>
       </section>
 
-      <section className='board'>
-        <div className='button-container'>
+      <section className="board">
+        <div className="button-container">
           <button onClick={() => setSidebar(true)}>
-            <span className='material-icons'>add</span>
+            <span className="material-icons">add</span>
           </button>
         </div>
-        <div className='wrap'>
-          <div className='shapes-container'>
+        <div className="wrap">
+          <div className="shapes-container">
             {board.map((item, index) =>
               item.shape === "rectangle" ? (
                 <Rectangle
