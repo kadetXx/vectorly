@@ -134,6 +134,7 @@ form button {
 @media (max-width: 900px) {
   .App > section:nth-child(2) {
     width: 100%;
+    border: 10px solid #db6400;
   }
 }
 
@@ -151,7 +152,7 @@ form button {
 }
 
 .App > section:nth-child(2) .button-container button {
-  background-color: #000;
+  background-color: #db6400;
   color: #fff;
   font-weight: bold;
   border: none;
