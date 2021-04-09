@@ -117,6 +117,7 @@ function App() {
             <div className='input-wrap'>
               <p>Select shape type</p>
               <Select
+                size="large"
                 placeholder='Choose shape'
                 optionFilterProp='children'
                 value={shape}
@@ -141,6 +142,7 @@ function App() {
             <div className='input-wrap'>
               <p>Select color</p>
               <Select
+              size="large"
                 placeholder='Choose color'
                 optionFilterProp='children'
                 defaultValue='black'
