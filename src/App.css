@@ -1,6 +1,7 @@
 /* BASIC STYLING */
 .html, .body, #root, .App {
   height: 100%;
+  box-sizing: border-box;
 }
 
 .App {
